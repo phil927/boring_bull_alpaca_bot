@@ -114,42 +114,12 @@ def make_trade(trade_action: str):
         alert("Selling Stock Today")
         all_out()
 
-# TODO Can Refactor all of the below following code here: https://alpaca.markets/docs/api-documentation/how-to/market-hours/
-
-
-def is_trading_day(current_time_localized: datetime) -> bool:
-    day_of_the_week_index = current_time_localized.weekday()
-    day_of_the_week = calendar.day_name[day_of_the_week_index]
-    print(f"{day_of_the_week} with index: {day_of_the_week_index:d}")
-
-    if day_of_the_week_index >= 5:
-        alert("It's the weekend, no trades possible")
-        return False
-    else:
-        alert("It is a trading day.")
-        return True
-
 
 def is_time_to_trade() -> bool:
-    timeZ_Ea = pytz.timezone('US/Eastern')
-    time_in_us_eastern = datetime.now(timeZ_Ea)
-    print(time_in_us_eastern)
-
-    if not is_trading_day(time_in_us_eastern):
-        return False
-    else:
-        trading_time = datetime(
-            time_in_us_eastern.year, time_in_us_eastern.month, time_in_us_eastern.day, trading_hour, trading_minute)
-        trading_time = timeZ_Ea.localize(trading_time)
-        time_until_trading = trading_time - time_in_us_eastern
-
-        if abs(time_until_trading) < timedelta(minutes=acceptable_trading_window):
-            alert("It's trading time!")
-            return True
-        else:
-            alert(
-                f"Not trading time: \nCurrent Time: {time_in_us_eastern}\nTrading Time: {trading_time}")
-            return False
+    clock = api.get_clock()
+    print('The market is {}'.format(
+        'open. Good to trade!' if clock.is_open else 'closed. No trading today'))
+    return clock.is_open
 
 
 def lambda_handler(event, context):
