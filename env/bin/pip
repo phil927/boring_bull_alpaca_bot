@@ -1,4 +1,4 @@
-#!/home/phillip/Documents/Personal_Projects/boring-bull-email/venv/bin/python3
+#!/home/phillip/Documents/Personal_Projects/boring-bull-email/env/bin/python3
 
 # -*- coding: utf-8 -*-
 import re
