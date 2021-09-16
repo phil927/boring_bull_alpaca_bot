@@ -128,12 +128,12 @@ def is_market_open() -> bool:
 
 def is_trading_time() -> bool:
     UTC = pytz.utc
-    timeZ_Ea = pytz.timezone('US/Eastern')
-    time_in_us_eastern = timeZ_Ea.localize(datetime.now())
+    eastern_timezone = pytz.timezone('US/Eastern')
+    time_in_us_eastern = datetime.now(eastern_timezone)
 
     trading_time = datetime(
         time_in_us_eastern.year, time_in_us_eastern.month, time_in_us_eastern.day, trading_hour, trading_minute)
-    trading_time = timeZ_Ea.localize(trading_time)
+    trading_time = eastern_timezone.localize(trading_time)
     time_until_trading = trading_time - time_in_us_eastern
 
     if abs(time_until_trading) < timedelta(minutes=acceptable_trading_window):
@@ -141,7 +141,7 @@ def is_trading_time() -> bool:
         return True
     else:
         alert(
-            f"Not trading time: \nCurrent Time: {time_in_us_eastern}\nTrading Time: {trading_time}")
+            f"Not trading time: \nCurrent Time: {time_in_us_eastern}\nTrading Time: {trading_time}\nTime until Trading: {time_until_trading}")
         return False
 
 

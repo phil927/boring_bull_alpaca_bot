@@ -22,19 +22,14 @@ service: serverless-test
 
 provider:
   name: aws
-  runtime: python3.8
+  ecr:
+    images:
+      alpaca:
+        path: ./
 
 # you can overwrite defaults here
 # stage: dev
 # region: us-east-1
-
-plugins:
-  - serverless-python-requirements
-
-custom:
-  pythonRequirements:
-    zip: true
-    dockerizePip: non-linux
 
 # you can add statements to the Lambda function's IAM Role here
 #  iamRoleStatements:
@@ -66,8 +61,13 @@ custom:
 #    - exclude-me-dir/**
 
 functions:
-  hello:
-    handler: handler.lambda_handler
+  stock-trader:
+    image:
+      name: alpaca
+      command:
+        - handler.lambda_handler
+      entryPoint:
+        - "/lambda-entrypoint.sh"
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details
