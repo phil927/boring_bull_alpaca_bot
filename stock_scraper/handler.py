@@ -7,8 +7,8 @@ from botocore.config import Config
 STOCK_TICKERS = ["spxl", "aapl", "pltr"]
 DATABASE_NAME = 'StockData'
 TABLE_NAME = 'StockDataTable'
-AWS_ACCESS_KEY_ID = 'AKIAYAJNGB7AHOAJZFMH'
-AWS_SECRET_ACCESS_KEY = '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'
+AWS_ACCESS_KEY_ID = 'XXX'
+AWS_SECRET_ACCESS_KEY = 'XXX'
 
 
 def get_stock_price(stock_ticker: str) -> float:
