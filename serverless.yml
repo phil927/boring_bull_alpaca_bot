@@ -62,9 +62,9 @@ resources:
       Properties:
         TableName: "StockDataTable"
         DatabaseName: "StockData"
-        # RetentionProperties:
-        #   MemoryStoreRetentionPeriodInHours: "0"
-        # MagneticStoreRetentionPeriodInDays: "7"
+        RetentionProperties:
+          MemoryStoreRetentionPeriodInHours: "1"
+          MagneticStoreRetentionPeriodInDays: "36500"
 # you can overwrite defaults here
 # stage: dev
 # region: us-east-1
